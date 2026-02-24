@@ -164,7 +164,7 @@ Products:
 ${checkoutItems.map(p=>`${p.name} - ${p.selectedColor} - ${p.quantity} x ৳${p.price}`).join("\n")}
 `;
 
-    const waNumber = "01586094280";
+    const waNumber = "+8801586094280";
     const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
     window.open(url,"_blank");
 
@@ -177,4 +177,5 @@ displayCheckout();
 </script>
 
 </body>
+
 </html>
