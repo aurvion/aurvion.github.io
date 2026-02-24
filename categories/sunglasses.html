@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sunglasses</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animation.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">ARVION</div>
+    <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+    </ul>
+</nav>
+
+<section class="categories">
+    <h2>Sunglasses</h2>
+    <div class="category-grid" id="product-list"></div>
+</section>
+
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script>
+    const container = document.getElementById("product-list");
+
+    const filtered = products.filter(p => p.category === "sunglasses");
+
+    filtered.forEach(product => {
+        container.innerHTML += `
+        <div class="category-card">
+            <img src="${product.image}" width="100%">
+            <h3>${product.name}</h3>
+            <p>Code: ${product.id}</p>
+            <p>৳ ${product.price}</p>
+            
+            <select id="color-${product.id}">
+                ${product.colors.map(c => `<option value="${c}">${c}</option>`)}
+            </select>
+            <br><br>
+            <button onclick="addToCart('${product.id}')">Add to Cart</button>
+            <button onclick="buyNow('${product.id}')">Buy Now</button>
+        </div>
+        `;
+    });
+</script>
+
+</body>
+</html>
