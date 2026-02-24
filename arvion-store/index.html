@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arvion Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animation.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">ARVION</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        </ul>
+
+        <!-- SEARCH BAR -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search product or code...">
+            <button onclick="searchProduct()">Search</button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Welcome to Arvion Store</h1>
+        <p>Premium Sunglasses, Watches & Accessories</p>
+    </section>
+
+    <!-- CATEGORY SECTION -->
+    <section class="categories">
+        <h2>Shop by Category</h2>
+
+        <div class="category-grid">
+            <a href="categories/sunglasses.html" class="category-card">Sunglasses</a>
+            <a href="categories/watches.html" class="category-card">Watches</a>
+            <a href="categories/perfumes.html" class="category-card">Perfumes</a>
+            <a href="categories/facewash.html" class="category-card">Facewash</a>
+            <a href="categories/accessories.html" class="category-card">Accessories</a>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

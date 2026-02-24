@@ -1,0 +1,32 @@
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Apply Animation */
+.hero {
+    animation:fadeIn 1s ease-in-out;
+}
+
+.category-card {
+    animation:fadeIn 1.2s ease-in-out;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.category-card:hover {
+    transform:translateY(-10px);
+    box-shadow:0 10px 25px rgba(255,215,0,0.4);
+}
+
+/* Navbar smooth */
+.navbar {
+    transition:all 0.3s ease;
+}

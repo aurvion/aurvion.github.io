@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">ARVION</div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+    </ul>
+</nav>
+
+<section class="categories">
+    <h2>Checkout</h2>
+
+    <div id="checkout-items"></div>
+
+    <h3 id="subtotal"></h3>
+
+    <!-- Delivery Area -->
+    <label for="area">Delivery Area:</label>
+    <select id="area" onchange="calculateDelivery()">
+        <option value="">--Select Area--</option>
+        <option value="kishoreganj">Kishoreganj</option>
+        <option value="dhaka">Dhaka</option>
+        <option value="other">Other</option>
+    </select>
+
+    <h3 id="delivery-charge"></h3>
+    <h3 id="total"></h3>
+
+    <!-- Payment Method -->
+    <label for="paymentMethod">Payment Method:</label>
+    <select id="paymentMethod" onchange="showAccount()">
+        <option value="">--Select Payment--</option>
+        <option value="bKash">bKash</option>
+        <option value="Nagad">Nagad</option>
+        <option value="Rocket">Rocket</option>
+        <option value="cash">Cash on Delivery</option>
+    </select>
+
+    <!-- Show Account Number -->
+    <h3 id="account-info"></h3>
+    <input type="text" id="senderNumber" placeholder="Sender's Number (if paid)"><br><br>
+
+    <!-- Customer Details -->
+    <h3>Customer Details:</h3>
+    <input type="text" id="customerName" placeholder="Full Name"><br><br>
+    <input type="text" id="customerPhone" placeholder="Phone Number"><br><br>
+    <input type="text" id="customerAddress" placeholder="Address"><br><br>
+    <input type="text" id="transactionId" placeholder="Transaction ID (If Paid)"><br><br>
+
+    <button onclick="placeOrder()" class="checkout-btn">Place Order</button>
+</section>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script>
+// Get Cart or BuyNow
+let checkoutItems = JSON.parse(localStorage.getItem("buyNow")) ? [JSON.parse(localStorage.getItem("buyNow"))] : cart;
+let subtotal = 0;
+let deliveryCharge = 0;
+
+// Display Products
+function displayCheckout(){
+    const container = document.getElementById("checkout-items");
+    container.innerHTML = "";
+    subtotal = 0;
+
+    checkoutItems.forEach(item=>{
+        subtotal += item.price * item.quantity;
+        container.innerHTML += `
+        <div class="category-card">
+            <img src="${item.image}" width="100%">
+            <h3>${item.name}</h3>
+            <p>Color: ${item.selectedColor}</p>
+            <p>Price: ৳ ${item.price}</p>
+            <p>Quantity: ${item.quantity}</p>
+        </div>
+        `;
+    });
+
+    document.getElementById("subtotal").innerText = "Subtotal: " + subtotal + " ৳";
+    updateTotal();
+}
+
+// Calculate Delivery Charge
+function calculateDelivery(){
+    const area = document.getElementById("area").value;
+    if(area === "kishoreganj") deliveryCharge = 60;
+    else if(area === "dhaka") deliveryCharge = 100;
+    else if(area === "other") deliveryCharge = 150;
+    else deliveryCharge = 0;
+
+    const deliveryText = deliveryCharge ? "Delivery Charge: " + deliveryCharge + " ৳" : "";
+    document.getElementById("delivery-charge").innerText = deliveryText;
+
+    updateTotal();
+}
+
+// Update Total with smooth animation
+function updateTotal(){
+    const totalElem = document.getElementById("total");
+    const totalValue = deliveryCharge ? subtotal + deliveryCharge : subtotal;
+    totalElem.style.opacity = 0;
+    setTimeout(()=>{
+        totalElem.innerText = deliveryCharge ? "Total: " + totalValue + " ৳" : "";
+        totalElem.style.opacity = 1;
+    },200);
+}
+
+// Show Account Number based on Payment
+function showAccount(){
+    const method = document.getElementById("paymentMethod").value;
+    let account = "";
+    if(method === "bKash") account = "bKash Number: 01850711725";
+    else if(method === "Nagad") account = "Nagad Number: 01850711725";
+    else if(method === "Rocket") account = "Rocket Number: 01850711725";
+    else account = "";
+    document.getElementById("account-info").innerText = account;
+}
+
+// Place Order
+function placeOrder(){
+    const name = document.getElementById("customerName").value;
+    const phone = document.getElementById("customerPhone").value;
+    const address = document.getElementById("customerAddress").value;
+    const payment = document.getElementById("paymentMethod").value;
+    const txn = document.getElementById("transactionId").value;
+    const sender = document.getElementById("senderNumber").value;
+    const area = document.getElementById("area").value;
+
+    // Validation
+    if(!name || !phone || !address || !payment){
+        alert("Please fill all required fields!");
+        return;
+    }
+
+    if(!area || deliveryCharge === 0){
+        alert("Please select a delivery area!");
+        return;
+    }
+
+    if(payment !== "cash" && (!txn || !sender)){
+        alert("Please enter transaction ID and sender number!");
+        return;
+    }
+
+    const message = `New Order:
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+Delivery Area: ${area}
+Payment: ${payment}
+Account Number: ${document.getElementById("account-info").innerText}
+Sender Number: ${sender}
+Transaction ID: ${txn}
+Total: ${subtotal + deliveryCharge} ৳
+Products:
+${checkoutItems.map(p=>`${p.name} - ${p.selectedColor} - ${p.quantity} x ৳${p.price}`).join("\n")}
+`;
+
+    const waNumber = "01586094280";
+    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url,"_blank");
+
+    // Clear Cart
+    localStorage.removeItem("cart");
+    localStorage.removeItem("buyNow");
+}
+
+displayCheckout();
+</script>
+
+</body>
+</html>
