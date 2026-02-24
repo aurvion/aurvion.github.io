@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurvion | Premium Store</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">Aurvion</div>
+
+  <input type="text" id="searchInput" placeholder="Search by name or code..." onkeyup="searchProduct()">
+
+  <ul class="menu">
+    <li onclick="filterCategory('all')">All</li>
+    <li onclick="filterCategory('sunglasses')">Sunglasses</li>
+    <li onclick="filterCategory('watches')">Watches</li>
+    <li onclick="filterCategory('perfumes')">Perfumes</li>
+    <li onclick="filterCategory('facewash')">Facewash</li>
+    <li onclick="filterCategory('grooming')">Grooming</li>
+    <li onclick="filterCategory('jewellery')">Jewellery</li>
+    <li onclick="filterCategory('bracelets')">Bracelets</li>
+    <li onclick="filterCategory('bangles')">Bangles</li>
+  </ul>
+</nav>
+<!-- CATEGORY SECTION -->
+<section class="categories">
+
+  <div class="category-card" onclick="filterCategory('sunglasses')">Sunglasses</div>
+  <div class="category-card" onclick="filterCategory('watches')">Watches</div>
+  <div class="category-card" onclick="filterCategory('perfumes')">Perfumes</div>
+  <div class="category-card" onclick="filterCategory('facewash')">Facewash</div>
+  <div class="category-card" onclick="filterCategory('grooming')">Grooming</div>
+  <div class="category-card" onclick="filterCategory('jewellery')">Jewellery</div>
+  <div class="category-card" onclick="filterCategory('bracelets')">Bracelets</div>
+  <div class="category-card" onclick="filterCategory('bangles')">Bangles</div>
+
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="productContainer">
+</section>
+<!-- CART SECTION -->
+<div class="cart-section" id="cartSection">
+  <h2>Your Cart</h2>
+  <div id="cartItems"></div>
+  <h3>Subtotal: ৳<span id="subtotal">0</span></h3>
+  <h3>Delivery: ৳<span id="deliveryCharge">0</span></h3>
+  <h2>Total: ৳<span id="grandTotal">0</span></h2>
+
+  <button onclick="openCheckout()">Proceed to Checkout</button>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-modal" id="checkoutModal">
+  <div class="checkout-box">
+    <h2>Checkout</h2>
+
+    <input type="text" id="customerName" placeholder="Full Name">
+    <input type="text" id="customerPhone" placeholder="Phone Number">
+    <textarea id="customerAddress" placeholder="Full Address"></textarea>
+
+    <select id="locationSelect" onchange="calculateDelivery()">
+      <option value="">Select Location</option>
+      <option value="kishoreganj">Inside Kishoreganj</option>
+      <option value="dhaka">Inside Dhaka</option>
+      <option value="others">Other District</option>
+    </select>
+
+    <select id="paymentMethod" onchange="togglePaymentFields()">
+      <option value="">Select Payment Method</option>
+      <option value="bkash">bKash</option>
+      <option value="nagad">Nagad</option>
+      <option value="rocket">Rocket</option>
+      <option value="cod">Cash on Delivery</option>
+    </select>
+
+    <div id="onlinePaymentFields" style="display:none;">
+      <p>Send Money to: <b>01850711725</b></p>
+      <input type="text" id="transactionId" placeholder="Transaction ID">
+      <input type="text" id="senderNumber" placeholder="Sender Number">
+    </div>
+
+    <button onclick="confirmOrder()">Confirm Order</button>
+    <button onclick="closeCheckout()">Cancel</button>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
