@@ -7,12 +7,13 @@ import { getStorage } from 'firebase/storage';
 // For local development, replace these with your actual Firebase config
 // For production, use environment variables
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || ""
+  apiKey: "AIzaSyCSVwq66Rm1ayhJjDjD_yWIdErxDUJUpGc",
+  authDomain: "aurvion-store.firebaseapp.com",
+  projectId: "aurvion-store",
+  storageBucket: "aurvion-store.firebasestorage.app",
+  messagingSenderId: "212908146342",
+  appId: "1:212908146342:web:174128e3f4289bc366fe67",
+  measurementId: "G-910HSGSPYN"
 };
 
 // Check if Firebase config is valid (not empty and not placeholder)
@@ -39,6 +40,9 @@ if (isValidConfig) {
   console.log("Firebase not configured - using demo mode");
 }
 
+// Export with fallback to prevent crashes
+export { db, auth, storage };
+export default app;
 // Export with fallback to prevent crashes
 export { db, auth, storage };
 export default app;
